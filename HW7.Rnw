@@ -48,9 +48,21 @@ pois.prob <- function(x, lambda, type="<="){
     for a beta distribution. Enable the user to specify the shape parameters
     $\alpha$ and $\beta$.
 <<size="scriptsize">>=
-beta.prob <- function(x, size, prob, type="<="){
+beta.prob <- function(x, a, b, type="<="){
   # Use dbeta and pbeta to conditionally return the correct probability
+  
+  if (type == "<=" | type == "<") {
+    p = pbeta(x, a, b)
+  }else if (type == "=") {
+    p = 0
+  }else if (type == "!=") {
+    p = 1
+  }else {
+    p = 1 - pbeta(x, a, b)
+  }
+  return(p)
 }
+
 @
 \end{enumerate}
 \bibliography{bibliography}

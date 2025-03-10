@@ -104,8 +104,19 @@
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hldef{beta.prob} \hlkwb{<-} \hlkwa{function}\hldef{(}\hlkwc{x}\hldef{,} \hlkwc{size}\hldef{,} \hlkwc{prob}\hldef{,} \hlkwc{type}\hldef{=}\hlsng{"<="}\hldef{)\{}
+\hldef{beta.prob} \hlkwb{<-} \hlkwa{function}\hldef{(}\hlkwc{x}\hldef{,} \hlkwc{a}\hldef{,} \hlkwc{b}\hldef{,} \hlkwc{type}\hldef{=}\hlsng{"<="}\hldef{)\{}
   \hlcom{# Use dbeta and pbeta to conditionally return the correct probability}
+
+  \hlkwa{if} \hldef{(type} \hlopt{==} \hlsng{"<="} \hlopt{|} \hldef{type} \hlopt{==} \hlsng{"<"}\hldef{) \{}
+    \hldef{p} \hlkwb{=} \hlkwd{pbeta}\hldef{(x, a, b)}
+  \hldef{\}}\hlkwa{else if} \hldef{(type} \hlopt{==} \hlsng{"="}\hldef{) \{}
+    \hldef{p} \hlkwb{=} \hlnum{0}
+  \hldef{\}}\hlkwa{else if} \hldef{(type} \hlopt{==} \hlsng{"!="}\hldef{) \{}
+    \hldef{p} \hlkwb{=} \hlnum{1}
+  \hldef{\}}\hlkwa{else} \hldef{\{}
+    \hldef{p} \hlkwb{=} \hlnum{1} \hlopt{-} \hlkwd{pbeta}\hldef{(x, a, b)}
+  \hldef{\}}
+  \hlkwd{return}\hldef{(p)}
 \hldef{\}}
 \end{alltt}
 \end{kframe}
