@@ -21,8 +21,23 @@
     \item Write a \texttt{pois.prob()} function that computes $P(X=x)$, 
     $P(X \neq x)$, $P(X<x)$, $P(X \leq x)$, $P(X > x)$, and $P(X \geq x).$ Enable the user to specify the rate parameter $\lambda$.
 <<size="scriptsize">>=
-pois.prob <- function(x, size, prob, type="<="){
+pois.prob <- function(x, lambda, type="<="){
   # Use dpois and ppois to conditionally return the correct probability
+  
+  if (type == "<=") {
+    p = ppois(x, lambda)
+  }else if (type == "<") {
+    p = ppois(x-1, lambda)
+  }else if (type == "=") {
+    p = dpois(x, lambda)
+  }else if (type == "!=") {
+    p = 1 - dpois(x, lambda)
+  }else if (type == ">=") {
+    p = 1 - ppois(x, lambda)
+  }else {
+    p = 1 - ppois(x+1, lambda)
+  }
+  return(p)
 }
 @
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
